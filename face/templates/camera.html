@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head><title>Face Recognition</title></head>
+<body>
+    <h2>Face Recognition - Show Face</h2>
+    <video id="video" width="640" height="480" autoplay></video>
+    <button onclick="capture()">Scan Face</button>
+
+    <form id="form" method="POST" enctype="multipart/form-data" action="/recognize">
+        <input type="file" id="snapshot" name="image" style="display:none;">
+    </form>
+
+    <script>
+        const video = document.querySelector("#video");
+
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => video.srcObject = stream);
+
+        function capture() {
+            const canvas = document.createElement("canvas");
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            canvas.getContext("2d").drawImage(video, 0, 0);
+            canvas.toBlob(blob => {
+                const fileInput = document.querySelector("#snapshot");
+                const file = new File([blob], "snapshot.jpg", { type: "image/jpeg" });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                fileInput.files = dataTransfer.files;
+                document.querySelector("#form").submit();
+            }, 'image/jpeg');
+        }
+    </script>
+</body>
+</html>

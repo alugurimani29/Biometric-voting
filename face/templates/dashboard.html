@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <body style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px;">
+    
+    <!-- Custom Election illustration -->
+    <img src="{{ url_for('static', filename='images/ballot_box_tricolor.png') }}" 
+         alt="Ballot Box with Indian Tricolor" 
+         style="width: 100%; max-height: 300px; object-fit: contain; margin-bottom: 20px; border: 1px solid #ccc; border-radius: 6px;">
+
+    <h2 style="color: #222;">Welcome Election Department</h2>
+    
+    <ul style="list-style-type: none; padding-left: 0;">
+      <li><a href="{{ url_for('register_voter') }}" style="display: block; padding: 10px; background: #007bff; color: white; text-decoration: none; margin-bottom: 10px; border-radius: 4px;">Register Voter</a></li>
+      <li><a href="{{ url_for('vote') }}" style="display: block; padding: 10px; background: #28a745; color: white; text-decoration: none; margin-bottom: 10px; border-radius: 4px;">Scan & Vote</a></li>
+      <li><a href="{{ url_for('results') }}" style="display: block; padding: 10px; background: #17a2b8; color: white; text-decoration: none; margin-bottom: 10px; border-radius: 4px;">View Results</a></li>
+      <li><a href="{{ url_for('logout') }}" style="display: block; padding: 10px; background: #dc3545; color: white; text-decoration: none; border-radius: 4px;">Logout</a></li>
+    </ul>
+    
+  </body>
+</html>

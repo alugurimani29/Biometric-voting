@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Thank You for Voting</title>
+</head>
+<body>
+  <h2>Voter Information</h2>
+  <p><strong>ID:</strong> {{ voter_id }}</p>
+  <p><strong>Name:</strong> {{ voter.name }}</p>
+  <p><strong>Address:</strong> {{ voter.address }}</p>
+  <p><strong>DOB:</strong> {{ voter.dob }}</p>
+
+  <hr>
+
+  <h3>Your vote has been recorded. Thank you!</h3>
+  <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+  <p><a href="{{ url_for('results') }}">View Election Results</a></p>
+</body>
+</html>

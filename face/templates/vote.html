@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <h2>Scan Face to Vote</h2>
+    <video id="video" width="320" height="240" autoplay></video><br>
+    <button id="snap">Scan & Vote</button>
+    <canvas id="canvas" width="320" height="240" style="display:none;"></canvas>
+
+    <form id="voteForm" method="POST">
+      <input type="hidden" name="face_data" id="face_data">
+    </form>
+
+    <script>
+      const video = document.getElementById('video');
+      const canvas = document.getElementById('canvas');
+      const context = canvas.getContext('2d');
+      const faceInput = document.getElementById('face_data');
+      const voteForm = document.getElementById('voteForm');
+
+      // Start webcam stream
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+          video.srcObject = stream;
+        })
+        .catch(err => {
+          alert("Camera access denied: " + err);
+        });
+
+      // Capture frame and submit
+      document.getElementById('snap').addEventListener('click', function(e) {
+        e.preventDefault();  // Prevent button's default behavior
+
+        canvas.width = video.videoWidth;
+        canvas.height = video.videoHeight;
+        context.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+        faceInput.value = canvas.toDataURL('image/jpeg');
+
+        // Delay form submission to ensure canvas capture is ready
+        setTimeout(() => {
+          voteForm.submit();
+        }, 300);  // 300ms wait
+      });
+    </script>
+  </body>
+</html>

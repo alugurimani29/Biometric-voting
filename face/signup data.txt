@@ -1,0 +1,8 @@
+Navigate:
+
+http://localhost:5000/signup → (manually) create staff account
+
+http://localhost:5000/login → login
+
+→ Dashboard → Register Voter / Scan & Vote
+

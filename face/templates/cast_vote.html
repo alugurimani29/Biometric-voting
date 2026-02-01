@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Cast Vote</title></head>
+<body>
+  <h2>Welcome {{ voter.name }}</h2>
+  <p>Choose your candidate:</p>
+
+  <form method="POST" action="/vote">
+    {% for cid, cname in candidates.items() %}
+      <input type="radio" name="candidate_id" value="{{ cid }}" required>
+      {{ cname }}<br>
+    {% endfor %}
+    <input type="hidden" name="voter_id" value="{{ voter_id }}">
+    <button type="submit">Submit Vote</button>
+  </form>
+</body>
+</html>

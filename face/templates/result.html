@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Election Results</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+      background-color: #f7f7f7;
+    }
+    h1 {
+      color: #333;
+      text-align: center;
+    }
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    li {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      padding: 12px;
+      margin-bottom: 10px;
+      font-size: 18px;
+      border-radius: 5px;
+      box-shadow: 1px 1px 5px rgba(0,0,0,0.1);
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #007bff;
+      padding: 10px 15px;
+      border-radius: 4px;
+    }
+    a:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Election Results</h1>
+  <ul>
+    {% for name, count in results.items() %}
+      <li><strong>{{ name }}</strong>: {{ count }} vote{{ 's' if count != 1 else '' }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

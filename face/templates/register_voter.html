@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register Voter</title>
+  <style>
+    .alert-success {
+      color: #155724;
+      background-color: #d4edda;
+      border: 1px solid #c3e6cb;
+      padding: 10px;
+      margin-bottom: 15px;
+      width: 320px;
+    }
+  </style>
+</head>
+<body>
+  <h2>Register New Voter</h2>
+
+  <!-- Success Message -->
+  {% if success %}
+    <div class="alert-success">
+      ✅ Voter <strong>{{ voter_name }}</strong> has been successfully registered!
+    </div>
+  {% endif %}
+
+  <!-- Live camera feed -->
+  <video id="video" width="320" height="240" autoplay></video><br><br>
+
+  <!-- Hidden canvas to capture the frame -->
+  <canvas id="canvas" style="display:none;"></canvas>
+
+  <!-- Registration form -->
+  <form id="regForm" method="POST" action="/register_voter">
+    Voter ID: <input name="voter_id" required><br><br>
+    Name: <input name="name" required><br><br>
+    Address: <input name="address" required><br><br>
+    DOB: <input type="date" name="dob" required><br><br>
+    <input type="hidden" name="face_data" id="face_data">
+    <button type="submit">Capture & Register</button>
+  </form>
+
+  <script>
+    const video = document.getElementById('video');
+    const canvas = document.getElementById('canvas');
+    const context = canvas.getContext('2d');
+    const faceInput = document.getElementById('face_data');
+
+    // Start webcam stream
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then(stream => {
+        video.srcObject = stream;
+      })
+      .catch(err => {
+        alert("Could not access camera: " + err);
+      });
+
+    // Capture the frame just before form submits
+    document.getElementById('regForm').addEventListener('submit', function(e) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      faceInput.value = canvas.toDataURL('image/jpeg');
+    });
+  </script>
+</body>
+</html>
